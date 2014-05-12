@@ -1,0 +1,12 @@
+{
+  "name": "backbone.tastycollections",
+  "version": "0.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-coffee": "~0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jperler/backbone.tastycollections.git"
+  }
+}
