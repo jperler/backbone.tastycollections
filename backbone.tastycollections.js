@@ -177,7 +177,7 @@
       return PaginatedCollection;
 
     })(FilteredCollection);
-    return {
+    return Backbone.Tastycollections = {
       FilteredCollection: FilteredCollection,
       PaginatedCollection: PaginatedCollection
     };

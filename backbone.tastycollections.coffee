@@ -79,5 +79,6 @@
         goTo: (page) -> @current_page = page
         setLimit: (limit) -> @limit = limit
 
-    FilteredCollection: FilteredCollection
-    PaginatedCollection: PaginatedCollection
+    Backbone.Tastycollections =
+        FilteredCollection: FilteredCollection
+        PaginatedCollection: PaginatedCollection
