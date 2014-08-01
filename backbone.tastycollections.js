@@ -17,8 +17,12 @@
         return FilteredCollection.__super__.constructor.apply(this, arguments);
       }
 
-      FilteredCollection.prototype.initialize = function() {
-        return this.filters = {};
+      FilteredCollection.prototype.initialize = function(options) {
+        if (options == null) {
+          options = {};
+        }
+        this.filters = {};
+        return this.tastypieRelations = options.tastypieRelations;
       };
 
       FilteredCollection.prototype.getFilter = function(attr) {
@@ -41,6 +45,17 @@
         return delete this.filters[attr];
       };
 
+      FilteredCollection.prototype.updateKeys = function() {
+        return _.each(this.filters, (function(_this) {
+          return function(f, k) {
+            if (_.isArray(f) && f.length) {
+              _this.filters["" + k + "__in"] = _this.filters[k];
+              return delete _this.filters[k];
+            }
+          };
+        })(this));
+      };
+
       FilteredCollection.prototype.cleanFilters = function() {
         return _.each(this.filters, (function(_this) {
           return function(f, k) {
@@ -58,6 +73,9 @@
           options = {};
         }
         this.cleanFilters();
+        if (this.tastypieRelations) {
+          this.updateKeys();
+        }
         options.traditional = true;
         options.reset = true;
         if (!options.data) {

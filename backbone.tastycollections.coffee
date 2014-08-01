@@ -7,18 +7,26 @@
 ) (Backbone) ->
 
     class FilteredCollection extends Backbone.Collection
-        initialize: -> @filters = {}
+        initialize: (options = {}) ->
+            @filters = {}
+            @tastypieRelations = options.tastypieRelations
         getFilter: (attr) -> @filters[attr]
         getFilters: -> @filters
         addFilter: (attr, value) -> @filters[attr] = value
         addFilters: (filters) -> _.extend @filters, filters
         removeFilter: (attr) -> delete @filters[attr]
+        updateKeys: ->
+            _.each @filters, (f, k) =>
+                if _.isArray(f) and f.length
+                   @filters["#{ k }__in"] = @filters[k]
+                   delete @filters[k]
         cleanFilters: ->
             _.each @filters, (f, k) =>
                 if _.isArray(f) and not f.length then delete @filters[k]
                 else if _.isUndefined(f) or _.isNull(f) then delete @filters[k]
         fetch: (options = {}) ->
             @cleanFilters()
+            if @tastypieRelations then @updateKeys()
             options.traditional = true
             # without resetting the collections, order is not maintained if we
             # are relying on the order coming from tastypie
