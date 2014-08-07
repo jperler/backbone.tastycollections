@@ -45,7 +45,7 @@
         return delete this.filters[attr];
       };
 
-      FilteredCollection.prototype.updateKeys = function() {
+      FilteredCollection.prototype.updateKeys = _.once(function() {
         return _.each(this.filters, (function(_this) {
           return function(f, k) {
             if (_.isArray(f) && f.length) {
@@ -54,7 +54,7 @@
             }
           };
         })(this));
-      };
+      });
 
       FilteredCollection.prototype.cleanFilters = function() {
         return _.each(this.filters, (function(_this) {
