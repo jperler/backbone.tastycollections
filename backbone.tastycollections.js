@@ -45,16 +45,16 @@
         return delete this.filters[attr];
       };
 
-      FilteredCollection.prototype.updateKeys = _.once(function() {
+      FilteredCollection.prototype.updateKeys = function() {
         return _.each(this.filters, (function(_this) {
           return function(f, k) {
-            if (_.isArray(f) && f.length) {
+            if (_.isArray(f) && f.length && k.indexOf('__in') < 0) {
               _this.filters["" + k + "__in"] = _this.filters[k];
               return delete _this.filters[k];
             }
           };
         })(this));
-      });
+      };
 
       FilteredCollection.prototype.cleanFilters = function() {
         return _.each(this.filters, (function(_this) {

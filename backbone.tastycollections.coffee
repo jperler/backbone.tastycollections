@@ -15,9 +15,9 @@
         addFilter: (attr, value) -> @filters[attr] = value
         addFilters: (filters) -> _.extend @filters, filters
         removeFilter: (attr) -> delete @filters[attr]
-        updateKeys: _.once ->
+        updateKeys: ->
             _.each @filters, (f, k) =>
-                if _.isArray(f) and f.length
+                if _.isArray(f) and f.length and k.indexOf('__in') < 0
                    @filters["#{ k }__in"] = @filters[k]
                    delete @filters[k]
         cleanFilters: ->
