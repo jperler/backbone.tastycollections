@@ -46,7 +46,7 @@ Adds multiple filters to the collection.
 #### FilteredCollection.removeFilter(attr)
 Removes a filter from the collection.
 
-#### FilteredCollection.fetch()
+#### FilteredCollection.fetch(options)
 A typical Backbone.Collection fetch method with the addition of automatically passing the filters.
 
 ### Backbone.Tastycollections.PaginatedCollection
