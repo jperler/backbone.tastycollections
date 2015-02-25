@@ -25,14 +25,16 @@
                 if _.isArray(f) and not f.length then delete @filters[k]
                 else if _.isUndefined(f) or _.isNull(f) then delete @filters[k]
         fetch: (options = {}) ->
+            defaults =
+                traditional: true
+                # without resetting the collections, order is not maintained if
+                # we are relying on the order coming from tastypie
+                reset: true
             @cleanFilters()
             if @tastypieRelations then @updateKeys()
-            options.traditional = true
-            # without resetting the collections, order is not maintained if we
-            # are relying on the order coming from tastypie
-            options.reset = true
             if not options.data then options.data = {}
             _.extend options.data, @getFilters()
+            _.extend options, defaults
             Backbone.Collection.prototype.fetch.call @, options
 
     class PaginatedCollection extends FilteredCollection

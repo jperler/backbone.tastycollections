@@ -57,29 +57,29 @@ e.g.
 
 ```
 var collection = new Backbone.Tastycollections.PaginatedCollection({
-	tastypieRelations: true
+    tastypieRelations: true
 });
 collection.setLimit(5);
 collection.addFilters({
-	title: 'Title',
-	sort: 'asc'
+    title: 'Title',
+    sort: 'asc'
 });
 colllection.goTo(5);
 collection.fetch();
-``` 
+```
 
 #### PaginatedCollection.info()
 Returns an object containing all necessary context to render a pager view.
 
 ```
 {
-	has_next: true,
-	has_prev: false,
-	current_page: 1,
-	total_pages: 2,
-	total_records: 8,
-	limit: 5,
-	page_range: [1,2]
+    has_next: true,
+    has_prev: false,
+    current_page: 1,
+    total_pages: 2,
+    total_records: 8,
+    limit: 5,
+    page_range: [1,2]
 }
 ```
 #### PaginatedCollection.hasNext()

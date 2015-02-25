@@ -69,19 +69,23 @@
       };
 
       FilteredCollection.prototype.fetch = function(options) {
+        var defaults;
         if (options == null) {
           options = {};
         }
+        defaults = {
+          traditional: true,
+          reset: true
+        };
         this.cleanFilters();
         if (this.tastypieRelations) {
           this.updateKeys();
         }
-        options.traditional = true;
-        options.reset = true;
         if (!options.data) {
           options.data = {};
         }
         _.extend(options.data, this.getFilters());
+        _.extend(options, defaults);
         return Backbone.Collection.prototype.fetch.call(this, options);
       };
 
