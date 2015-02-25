@@ -85,7 +85,7 @@
           options.data = {};
         }
         _.extend(options.data, this.getFilters());
-        _.extend(options, defaults);
+        options = _.extend(defaults, options);
         return Backbone.Collection.prototype.fetch.call(this, options);
       };
 
