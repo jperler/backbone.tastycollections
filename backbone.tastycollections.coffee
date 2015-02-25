@@ -34,7 +34,7 @@
             if @tastypieRelations then @updateKeys()
             if not options.data then options.data = {}
             _.extend options.data, @getFilters()
-            _.extend options, defaults
+            options = _.extend defaults, options
             Backbone.Collection.prototype.fetch.call @, options
 
     class PaginatedCollection extends FilteredCollection
